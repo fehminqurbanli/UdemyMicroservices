@@ -27,7 +27,7 @@ namespace FreeCourse.Services.Catalog.Services
             _mapper = mapper;
         }
 
-        public async Task<Response<List<CourseDto>>> GetAllASync()
+        public async Task<Response<List<CourseDto>>> GetAllAsync()
         {
             var courses = await _courseCollection.Find(course => true).ToListAsync();
 

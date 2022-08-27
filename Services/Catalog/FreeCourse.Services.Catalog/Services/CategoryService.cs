@@ -14,7 +14,7 @@ namespace FreeCourse.Services.Catalog.Services
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
 
-        public CategoryService(IMapper mapper,DatabaseSettings databaseSettings)
+        public CategoryService(IMapper mapper,IDatabaseSettings databaseSettings)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
@@ -35,7 +35,7 @@ namespace FreeCourse.Services.Catalog.Services
             var category=_mapper.Map<Category>(categoryDto);
             await _categoryCollection.InsertOneAsync(category);
 
-            return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(categoryDto),200);
+            return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category),200);
         }
 
         public async Task<Response<CategoryDto>> GetByIdAsync(string id)
