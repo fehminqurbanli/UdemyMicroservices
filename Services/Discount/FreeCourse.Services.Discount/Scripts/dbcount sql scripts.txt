@@ -1,0 +1,10 @@
+﻿
+CREATE TABLE IF NOT EXISTS public."Discount"
+(
+    "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "UserId" text COLLATE pg_catalog."default" NOT NULL,
+    "Rate" smallint NOT NULL,
+    "Code" text COLLATE pg_catalog."default" NOT NULL,
+    "CreatedDate" timestamp with time zone NOT NULL,
+    CONSTRAINT "Discount_pkey" PRIMARY KEY ("Id")
+)
