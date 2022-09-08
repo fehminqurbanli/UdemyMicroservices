@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">User Login</h5>
-                <div asp-validation-summary="ModelOnly"></div>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form asp-controller="Auth" asp-action="SignIn" method="post">
                     <div class="mb-3">
                         <label asp-for="Email" for="exampleInputEmail1" class="form-label"></label>
