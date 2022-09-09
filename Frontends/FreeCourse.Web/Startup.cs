@@ -1,3 +1,4 @@
+using FreeCourse.Shared.Services;
 using FreeCourse.Web.Handler;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
@@ -31,8 +32,22 @@ namespace FreeCourse.Web
 
 
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddScoped<ClientCredentialTokenHandler>();
+
+            services.AddAccessTokenManagement();
+
+
             services.AddHttpClient<IIdentityService,IdentityService>();
+
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
             var serviceApiSettings=Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
+
+            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
